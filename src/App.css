@@ -1,14 +1,316 @@
-body { font-family: sans-serif; margin: 0; padding: 0; }
-.app { padding: 20px; }
-.menu-screen { max-width: 600px; }
-.app-title { font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem; }
-.app-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
-.exercise-list { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
-.exercise-btn { padding: 8px 20px; font-size: 1rem; cursor: pointer; border: 1px solid #999; background: #fff; border-radius: 3px; }
-.exercise-btn:hover { background: #f0f0f0; }
-.exercise-screen { max-width: 600px; }
-.exercise-name { font-size: 1.4rem; font-weight: normal; margin-bottom: 0.75rem; }
-.counter-label, .timer-label { font-size: 1.2rem; margin-bottom: 1.25rem; }
-.button-row { display: flex; gap: 4px; }
-.btn { padding: 8px 18px; font-size: 1rem; cursor: pointer; border: 1px solid #999; background: #fff; border-radius: 3px; }
-.btn:hover { background: #f0f0f0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow Condensed', sans-serif;
+  background: linear-gradient(160deg, #0e0e0e 0%, #181818 60%, #0d1a00 100%);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.app { min-height: 100vh; }
+
+/* ── Header ── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+}
+.app-header-title {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.app-header-logo {
+  width: 36px;
+  height: 36px;
+  background: #c8f000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+/* ── Menu Screen ── */
+.menu-screen { padding: 8px 24px 40px; }
+
+.menu-greeting {
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.menu-greeting .accent { color: #c8f000; }
+
+.menu-subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+}
+
+.exercise-list { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── Exercise Card ── */
+.exercise-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  border: none;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.exercise-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(200,240,0,0.22);
+}
+.exercise-card:active { transform: translateY(0); }
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  background: #f2f2f2;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  flex-shrink: 0;
+}
+.card-body { flex: 1; min-width: 0; }
+.card-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.3px;
+  display: block;
+  margin-bottom: 2px;
+}
+.card-meta {
+  font-size: 0.82rem;
+  color: #888;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  display: block;
+  margin-bottom: 8px;
+}
+.progress-wrap {
+  background: #e8e8e8;
+  border-radius: 6px;
+  height: 5px;
+  width: 100%;
+}
+.progress-bar {
+  height: 5px;
+  background: #c8f000;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+.card-pct {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #111;
+  flex-shrink: 0;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ── Exercise Screens (shared) ── */
+.ex-screen { min-height: 100vh; display: flex; flex-direction: column; }
+
+.ex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+}
+.back-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.back-btn:hover { background: rgba(255,255,255,0.18); }
+.ex-header-label {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.ex-hero {
+  padding: 8px 24px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ex-emoji-badge {
+  width: 54px;
+  height: 54px;
+  background: rgba(200,240,0,0.15);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+.ex-name {
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 24px 24px;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.stat-value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.stat-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.12);
+  margin: 4px 0;
+}
+
+/* ── Counter Card (Repetition) ── */
+.counter-card {
+  margin: 0 24px 28px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.counter-num {
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: #111;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.counter-sub {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #888;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.counter-card .progress-wrap { background: #e8e8e8; }
+
+/* ── Timer Card (Duration) ── */
+.timer-card {
+  margin: 0 24px 28px;
+  background: #1a1a1a;
+  border: 1px solid rgba(200,240,0,0.2);
+  border-radius: 24px;
+  padding: 32px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.timer-display {
+  font-size: 4.8rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.timer-ms {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #c8f000;
+}
+.timer-sub {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.timer-card .progress-wrap { background: rgba(255,255,255,0.1); }
+.timer-card .progress-bar { background: #c8f000; }
+
+/* ── Action Buttons ── */
+.action-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 24px 40px;
+}
+.pill-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+.pill-btn:active { transform: scale(0.97); }
+
+.pill-btn.lime {
+  background: #c8f000;
+  color: #111;
+}
+.pill-btn.lime:hover { box-shadow: 0 6px 20px rgba(200,240,0,0.4); }
+
+.pill-btn.ghost {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+}
+.pill-btn.ghost:hover { background: rgba(255,255,255,0.14); }
+
+.pill-btn.dark-pause {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+.pill-btn.dark-pause:hover { background: rgba(255,255,255,0.2); }
